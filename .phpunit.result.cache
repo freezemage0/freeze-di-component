@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Freeze\\Component\\DI\\Tests\\ContainerTest::testHas":7},"times":{"Freeze\\Component\\DI\\Tests\\Definition\\CallableDefinitionTest::testInstantiate":0,"Freeze\\Component\\DI\\Tests\\ContainerTest::testGet":0.001,"Freeze\\Component\\DI\\Tests\\ContainerTest::testGetConstructorResolve":0,"Freeze\\Component\\DI\\Tests\\ContainerTest::testHas":0}}

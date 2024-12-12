@@ -1,0 +1,27 @@
+{
+  "name": "freeze/di-component",
+  "description": "Dependency Injection Container for Freeze Framework",
+  "authors": [
+    {
+      "name": "Freezemage",
+      "email": "freezemage0@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Freeze\\Component\\DI\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.1"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Freeze\\Component\\DI\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10"
+  }
+}
