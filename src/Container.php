@@ -32,31 +32,31 @@ final class Container implements ContainerInterface
 
     /**
      * @template T
-     * @param class-string<T> $identifier
+     * @param class-string<T> $id
      *
      * @return T
      */
-    public function get(string $identifier): object
+    public function get(string $id): object
     {
-        if (!isset($this->definitions[$identifier])) {
-            $this->define($this->resolve($identifier));
+        if (!isset($this->definitions[$id])) {
+            $this->define($this->resolve($id));
         }
 
-        if (!isset($this->instances[$identifier])) {
-            $definition = $this->definitions[$identifier];
+        if (!isset($this->instances[$id])) {
+            $definition = $this->definitions[$id];
             $instance = $definition->instantiate();
 
             if (!($definition instanceof SharedDefinition) || $definition->shared) {
-                $this->instances[$identifier] = $instance;
+                $this->instances[$id] = $instance;
             }
         }
 
-        return $this->instances[$identifier];
+        return $this->instances[$id];
     }
 
-    public function has(string $identifier): bool
+    public function has(string $id): bool
     {
-        return isset($this->definitions[$identifier]) || isset($this->instances[$identifier]);
+        return isset($this->definitions[$id]) || isset($this->instances[$id]);
     }
 
     public function define(DefinitionInterface $definition): void
@@ -64,29 +64,29 @@ final class Container implements ContainerInterface
         $this->definitions[$definition->getIdentity()] = $definition;
     }
 
-    public function share(string $identity, bool $share = true): void
+    public function share(string $id, bool $share = true): void
     {
-        if (!isset($this->definitions[$identity])) {
-            throw new ServiceNotFoundException("Unknown service {$identity}");
+        if (!isset($this->definitions[$id])) {
+            throw new ServiceNotFoundException("Unknown service {$id}");
         }
 
-        $definition = $this->definitions[$identity];
+        $definition = $this->definitions[$id];
         if (!($definition instanceof SharedDefinition)) {
             $definition = new SharedDefinition($definition, $share);
         } else {
             $definition->shared = $share;
         }
-        $this->definitions[$identity] = $definition;
+        $this->definitions[$id] = $definition;
     }
 
-    public function alias(string $identity, string $alias): void
+    public function alias(string $id, string $alias): void
     {
-        $this->define(new ReferenceDefinition($this, $identity, $alias));
+        $this->define(new ReferenceDefinition($this, $id, $alias));
     }
 
-    public function factory(string $identity, callable $factory): void
+    public function factory(string $id, callable $factory): void
     {
-        $this->define(new CallableDefinition($identity, $factory));
+        $this->define(new CallableDefinition($id, $factory));
     }
 
     private function resolve(string $identifier): DefinitionInterface
